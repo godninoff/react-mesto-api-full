@@ -1,0 +1,19 @@
+.profile__avatar-button {
+    width: 120px;
+    height: 120px;
+    margin-right: 30px;
+    border-radius: 50%;
+}
+
+.profile__avatar-button:hover::before {
+    background-image: url('../../../images/style.png');
+    background-color: rgba(0, 0, 0, 0.8);
+    background-repeat: no-repeat;
+    background-position: center;
+    display: block;
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    content: '';
+    cursor: pointer;  
+}

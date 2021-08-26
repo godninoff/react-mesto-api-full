@@ -1,0 +1,13 @@
+.popup__opened {
+    position: relative;
+    width: 816px;
+    height: 540px;
+    margin: auto;
+}
+
+@media screen and (max-width: 901px) {
+    .popup__opened{
+        width: 320px;
+        height: 568px;
+    }
+}
