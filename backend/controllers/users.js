@@ -78,7 +78,8 @@ module.exports.login = (req, res, next) => {
       res
         .cookie('jwt', token, {
           httpOnly: true,
-          sameSite: true,
+          sameSite: 'none',
+          secure: true,
         })
         .send({ token });
     })
@@ -163,4 +164,13 @@ module.exports.profileUpdate = (req, res, next) => {
         next(err);
       }
     });
+};
+
+module.exports.signOut = (req, res) => {
+  res.clearCookie('jwt', {
+    httpOnly: true,
+    sameSite: 'none',
+    secure: true,
+  })
+    .status(200).send({ message: 'Cookie удалены' });
 };
