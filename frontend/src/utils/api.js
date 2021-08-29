@@ -87,7 +87,7 @@ setUserAvatar(avatarData) {
 };
 
 const api = new Api ({
-    address: 'api.weirdplace.students.nomoredomains.club/',
+    address: 'https://api.weirdplace.students.nomoredomains.club/',
     headers: {
     'Content-Type': 'application/json'
     },

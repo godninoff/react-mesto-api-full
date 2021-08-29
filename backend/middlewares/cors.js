@@ -1,8 +1,8 @@
 const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 const ALLOWED_CORS = [
-  'strannoe.mesto.nomoredomains.work',
-  'api.weirdplace.students.nomoredomains.club',
-  'localhost:3000'
+  'https://strannoe.mesto.nomoredomains.work',
+  'https://api.weirdplace.students.nomoredomains.club',
+  'http://localhost:3000'
 ];
 
 module.exports = (req, res, next) => {
