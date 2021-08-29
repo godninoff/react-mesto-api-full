@@ -19,7 +19,6 @@
   "bugs": {
     "url": "https://github.com/godninoff/express-mesto/issues"
   },
-  "homepage": "https://github.com/godninoff/express-mesto#readme",
   "dependencies": {
     "bcrypt-nodejs": "^0.0.3",
     "bcryptjs": "^2.4.3",
