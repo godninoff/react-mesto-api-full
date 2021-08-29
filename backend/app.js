@@ -12,7 +12,8 @@ const auth = require('./middlewares/auth');
 const NotFound = require('./errors/NotFound');
 const errorHandler = require('./errors/ErrorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const cors = require('./middlewares/cors');
+// const cors = require('./middlewares/cors');
+const cors = require('cors');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -24,7 +25,17 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useUnifiedTopology: true,
 });
 
-app.use(cors);
+app.use(
+  cors({
+    origin: [
+      'https://strannoe.mesto.nomoredomains.work',
+      'https://api.weirdplace.students.nomoredomains.club'
+    ],
+    methods: ['GET', 'PUT', 'POST', 'DELETE'],
+    allowedHeaders: ['Authorization', 'Content-Type'],
+    credentials: true,
+  }),
+);
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
