@@ -80,9 +80,8 @@ setUserAvatar(avatarData) {
 };
 
 const api = new Api ({
-    address: 'https://mesto.nomoreparties.co/v1/cohort-24',
+    address: 'https://api.weirdplace.students.nomoredomains.club/',
     headers: {
-    authorization: '680bd78d-11d7-4092-977f-23afe781bd9e',
     'Content-Type': 'application/json'
     },
   });

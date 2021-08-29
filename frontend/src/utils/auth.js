@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+export const BASE_URL = 'https://api.weirdplace.students.nomoredomains.club/';
 
 function getResponseData(res) {
     if(res.ok) {
