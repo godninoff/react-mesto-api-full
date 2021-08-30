@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const { celebrate, Joi } = require('celebrate');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
+const cors = require('cors');
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
 const { createUser, login } = require('./controllers/users');
@@ -12,7 +13,6 @@ const auth = require('./middlewares/auth');
 const NotFound = require('./errors/NotFound');
 const errorHandler = require('./errors/ErrorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const cors = require('cors');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -23,7 +23,6 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useFindAndModify: false,
   useUnifiedTopology: true,
 });
-
 
 app.use(helmet());
 app.use(express.json());
@@ -37,7 +36,21 @@ app.get('/crash-test', () => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
-app.use(cors());
+
+app.use(
+  cors({
+    origin: [
+      'https://strannoe.mesto.nomoredomains.work',
+      'https://api.weirdplace.students.nomoredomains.club',
+      'https://localhost:3000',
+    ],
+    methods: ['GET', 'PUT', 'POST', 'DELETE'],
+    allowedHeaders: ['Authorization', 'Content-Type'],
+    credentials: true,
+    optionsSuccesStatus: 200,
+  }),
+);
+
 app.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
