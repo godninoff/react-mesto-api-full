@@ -43,6 +43,8 @@ app.use(
       'https://strannoe.mesto.nomoredomains.work',
       'https://api.weirdplace.students.nomoredomains.club',
       'http://localhost:3000',
+      'http://localhost:3001',
+      'http://localhost:3002'
     ],
     methods: ['GET', 'PUT', 'POST', 'DELETE'],
     allowedHeaders: ['Authorization', 'Content-Type'],
