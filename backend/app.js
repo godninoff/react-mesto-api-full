@@ -44,9 +44,8 @@ app.use(
       'https://api.weirdplace.students.nomoredomains.club',
       'http://localhost:3000',
       'http://localhost:3001',
-      'http://localhost:3002'
     ],
-    methods: ['GET', 'PUT', 'POST', 'DELETE'],
+    methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'],
     allowedHeaders: ['Authorization', 'Content-Type'],
     credentials: true,
     optionsSuccesStatus: 200,
