@@ -42,7 +42,7 @@ app.use(
     origin: [
       'https://strannoe.mesto.nomoredomains.work',
       'https://api.weirdplace.students.nomoredomains.club',
-      'https://localhost:3000',
+      'http://localhost:3000',
     ],
     methods: ['GET', 'PUT', 'POST', 'DELETE'],
     allowedHeaders: ['Authorization', 'Content-Type'],
