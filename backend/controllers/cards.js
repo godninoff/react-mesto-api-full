@@ -53,6 +53,8 @@ module.exports.likeCard = (req, res, next) => {
     { $addToSet: { likes: req.user._id } },
     { new: true },
   )
+    .populate('likes')
+    .populate('owner')
     .orFail(new Error('NotValidId'))
     .then((card) => res.status(200).send({ data: card }))
     .catch((err) => {
