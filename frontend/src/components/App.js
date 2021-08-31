@@ -60,7 +60,7 @@ function App() {
         const isLiked = card.likes.some(i => i._id === currentUser._id);
         api.changeLikeCardStatus(card._id, !isLiked)
         .then((newCard) => {
-            setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+            setCards((state) => state.map((c) => c._id === card._id ? newCard.data : c));
         }).catch((e) => console.log(e));
     }
 
@@ -90,7 +90,7 @@ function App() {
     function handleAddPlaceSubmit(name, link) {
         api.createCard(name, link)
         .then((res) => {
-            setCards([res, ...cards]);
+            setCards([res.data, ...cards]);
             closeAllPopups();  
         }).catch((e) => console.log(e));
     }
