@@ -10,6 +10,8 @@
 * React
 * Node JS
 * Figma
+
+
   
 * Ссылка на проект: [https://strannoe.mesto.nomoredomains.work/sign-in](https://strannoe.mesto.nomoredomains.work/sign-in)
 * Ссылка на бэкенд (сервер) проекта: [https://api.weirdplace.students.nomoredomains.club](https://api.weirdplace.students.nomoredomains.club)
