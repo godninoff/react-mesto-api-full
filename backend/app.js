@@ -44,6 +44,7 @@ app.use(
       'https://api.weirdplace.students.nomoredomains.club',
       'http://localhost:3000',
       'http://localhost:3001',
+      'http://localhost:3002',
     ],
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'],
     allowedHeaders: ['Authorization', 'Content-Type'],
@@ -82,5 +83,6 @@ app.use(errors());
 app.use(errorHandler);
 
 app.listen(PORT, () => {
+  // eslint-disable-next-line no-console
   console.log(`App listening on port ${PORT}`);
 });

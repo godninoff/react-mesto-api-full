@@ -87,7 +87,7 @@ setUserAvatar(avatarData) {
 };
 
 const api = new Api ({
-    address: 'https://api.weirdplace.students.nomoredomains.club',
+    address: 'http://localhost:3000',
     headers: {
     'Content-Type': 'application/json'
     },
@@ -95,3 +95,5 @@ const api = new Api ({
   
 
 export default api;
+// 'http://localhost:3000'
+// 'https://api.weirdplace.students.nomoredomains.club'

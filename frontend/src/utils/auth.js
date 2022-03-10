@@ -1,5 +1,6 @@
-export const BASE_URL = 'https://api.weirdplace.students.nomoredomains.club';
-
+export const BASE_URL = 'http://localhost:3000';
+// 'http://localhost:3000'
+// 'https://api.weirdplace.students.nomoredomains.club'
 function getResponseData(res) {
     if(res.ok) {
         return res.json();

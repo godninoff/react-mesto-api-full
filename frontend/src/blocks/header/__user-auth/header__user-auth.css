@@ -1,6 +1,12 @@
 .header__user-auth {
-    display: flex;
-    align-items: center;
-    gap: 24px;
+  display: flex;
+  align-items: center;
+  grid-gap: 24px;
+}
 
+@media screen and (max-width: 620px) {
+  .header__user-auth {
+    grid-gap: 10px;
+    margin-right: 8px;
+  }
 }
