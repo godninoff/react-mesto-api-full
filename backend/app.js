@@ -14,10 +14,10 @@ const NotFound = require('./errors/NotFound');
 const errorHandler = require('./errors/ErrorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3000 } = process.env;
+const { MONGO_URL, PORT = 3000 } = process.env;
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/mestodb', {
+mongoose.connect(MONGO_URL, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
@@ -40,6 +40,7 @@ app.get('/crash-test', () => {
 app.use(
   cors({
     origin: [
+      'https://mesto-yandex.herokuapp.com',
       'https://strannoe.mesto.nomoredomains.work',
       'https://api.weirdplace.students.nomoredomains.club',
       'http://localhost:3000',
