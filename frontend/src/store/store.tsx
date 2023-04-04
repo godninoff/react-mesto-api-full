@@ -13,10 +13,12 @@ import {
   REGISTER,
 } from "redux-persist";
 import { authApi } from "./api/authApi";
+import showPopupReducer from "./popupReducer";
 
 const rootReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
   auth: authReducer,
+  popup: showPopupReducer,
 });
 
 const persistConfig = {

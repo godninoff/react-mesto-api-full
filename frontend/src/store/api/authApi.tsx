@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../authSlice";
+import { IUser } from "../types";
 
 export const authApi = createApi({
   reducerPath: "authApi",
@@ -33,7 +34,11 @@ export const authApi = createApi({
         };
       },
     }),
+    getUser: build.query<IUser, number | null>({
+      query: (id) => `users/${id}`,
+    }),
   }),
 });
 
-export const { useSignInMutation, useSignUpMutation } = authApi;
+export const { useSignInMutation, useSignUpMutation, useGetUserQuery } =
+  authApi;

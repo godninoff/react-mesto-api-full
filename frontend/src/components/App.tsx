@@ -245,14 +245,20 @@ import React from "react";
 import Header from "./Header";
 import Login from "./Login";
 import { Route, Routes } from "react-router-dom";
+import Register from "./Register";
+import Footer from "./Footer";
+import Main from "./Main";
 
 const App = () => {
   return (
     <div className="root">
       <Header />
       <Routes>
-        <Route path="/sign-in" element={<Login />} />
+        <Route path="/signin" element={<Login />} />
+        <Route path="/signup" element={<Register />} />
+        <Route path="/" element={<Main />} />
       </Routes>
+      <Footer />
     </div>
   );
 };

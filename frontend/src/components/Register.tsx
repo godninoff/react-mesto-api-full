@@ -1,22 +1,22 @@
-import { useNavigate } from "react-router-dom";
 import React from "react";
-import { useSignInMutation } from "../store/api/authApi";
-import { useAppDispatch } from "../store/hooks";
+import { Link, useNavigate } from "react-router-dom";
+import { useSignUpMutation } from "../store/api/authApi";
+import { useDispatch } from "react-redux";
 import { getUserData } from "../store/authSlice";
 
-const Login = () => {
+const Register = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const navigate = useNavigate();
 
-  const [signIn, { data, isSuccess }] = useSignInMutation();
+  const [signUp, { data, isSuccess }] = useSignUpMutation();
 
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email && password) {
-      await signIn({ email, password });
+      await signUp({ email, password });
     }
     console.error("error");
   };
@@ -30,9 +30,9 @@ const Login = () => {
 
   return (
     <main className="content">
-      <section className="sign-in">
-        <h2 className="login__title">Вход</h2>
-        <form className="sign__form" name="sign-in" onSubmit={handleLogin}>
+      <section className="sign-up">
+        <h2 className="login__title">Регистрация</h2>
+        <form className="sign__form" name="sign-up" onSubmit={handleRegister}>
           <input
             className="sign__input"
             type="email"
@@ -54,11 +54,17 @@ const Login = () => {
           />
           <span className="form__input-error"></span>
           <button className="sign__enter-button" type="submit" name="submit">
-            Войти
+            Зарегистрироваться
           </button>
+          <p className="sign__form-bottom-text">
+            <Link to="/signin" className="sign__form-bottom-link header__link">
+              Уже зарегистрированы? Войти
+            </Link>
+          </p>
         </form>
       </section>
     </main>
   );
 };
-export default Login;
+
+export default Register;
