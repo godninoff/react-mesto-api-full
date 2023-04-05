@@ -1,7 +1,15 @@
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { changePopupState } from "../store/popupReducer";
 
-const PopupWithForm = () => {
+type IPopupWithForm = {
+  name: string;
+  title: string;
+  buttonSaveText: string;
+  children: React.ReactNode;
+  onSubmit: () => void;
+};
+
+const PopupWithForm = (props: IPopupWithForm) => {
   const popup = useAppSelector((state) => state.popup.popupIsOpen);
   const dispatch = useAppDispatch();
 
@@ -15,15 +23,15 @@ const PopupWithForm = () => {
         >
           &times;
         </button>
-        {/* <h2 className="popup__title">{props.title}</h2> */}
+        <h2 className="popup__title">{props.title}</h2>
         <form
           className="popup__form"
-          // name={props.name}
-          // onSubmit={props.onSubmit}
+          name={props.name}
+          onSubmit={props.onSubmit}
         >
-          {/* {props.children} */}
+          {props.children}
           <button className="popup__save-button" type="submit">
-            {/* {props.buttonSaveText} */}
+            {props.buttonSaveText}
           </button>
         </form>
       </div>

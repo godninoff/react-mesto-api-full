@@ -29,15 +29,18 @@ const Main = () => {
             alt="Аватар пользователя"
           />
         </div>
-        <div className="profile__info">
-          <h1 className="profile__title">{data?.name}</h1>
-          <button
-            type="button"
-            className="profile__button-edit"
-            onClick={() => dispatch(changePopupState())}
-          ></button>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div className="profile__info">
+            <h1 className="profile__title">{data?.name}</h1>
+            <button
+              type="button"
+              className="profile__button-edit"
+              onClick={() => dispatch(changePopupState())}
+            />
+          </div>
           <p className="profile__subtitle">{data?.about}</p>
         </div>
+
         <button
           type="button"
           className="profile__add-button"
