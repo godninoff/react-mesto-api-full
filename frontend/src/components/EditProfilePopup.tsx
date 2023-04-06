@@ -2,8 +2,8 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { useEditUserMutation } from "../store/api/actionsApi";
-import { useAppDispatch } from "../store/hooks";
-import { changePopupState } from "../store/popupReducer";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { closeAllPopups } from "../store/popupReducer";
 
 const EditProfilePopup = () => {
   const currentUser = React.useContext(CurrentUserContext);
@@ -11,17 +11,22 @@ const EditProfilePopup = () => {
   const [description, setDescription] = React.useState("");
   const dispatch = useAppDispatch();
   const [editUser] = useEditUserMutation();
+  const userId = useAppSelector((state) => state.auth.userId);
 
   // React.useEffect(() => {
   //   setName(currentUser.name);
   //   setDescription(currentUser.about);
   // }, [currentUser, props.isOpen]);
 
-  const handleEditUser = async () => {
-    await editUser({
-      name: name,
-      about: description,
-    });
+  const handleEditUser = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (userId)
+      await editUser({
+        name: name,
+        about: description,
+      });
+    setName("");
+    setDescription("");
   };
 
   return (
@@ -30,12 +35,10 @@ const EditProfilePopup = () => {
       title="Редактировать профиль"
       buttonSaveText="Сохранить"
       onSubmit={handleEditUser}
-
-      // onClose={props.onClose}
     >
       <input
         required
-        value={name || ""}
+        value={name}
         onChange={(e) => setName(e.target.value)}
         className="popup__input popup__input_type_name"
         name="name"
@@ -48,7 +51,7 @@ const EditProfilePopup = () => {
       <span className="popup__form-error name-input-error"></span>
       <input
         required
-        value={description || ""}
+        value={description}
         onChange={(e) => setDescription(e.target.value)}
         className="popup__input popup__input_type_description"
         name="about"

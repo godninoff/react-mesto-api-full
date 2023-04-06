@@ -25,7 +25,13 @@ const Login = () => {
 
   React.useEffect(() => {
     if (isSuccess) {
-      dispatch(getUserData({ token: data.accessToken, id: data.user.id }));
+      dispatch(
+        getUserData({
+          token: data.accessToken,
+          userId: data.user.id,
+          id: data.user.id,
+        })
+      );
 
       navigate("/");
     }

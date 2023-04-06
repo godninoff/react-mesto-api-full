@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSignUpMutation } from "../store/api/authApi";
 import { useDispatch } from "react-redux";
 import { getUserData } from "../store/authSlice";
-import { changePopupState, checkAuthSuccess } from "../store/popupReducer";
+import { closeAllPopups, checkAuthSuccess } from "../store/popupReducer";
 import InfoTooltip from "./InfoTooltip";
 
 const Register = () => {
@@ -19,18 +19,24 @@ const Register = () => {
     e.preventDefault();
     if (email && password) {
       await signUp({ email, password });
-      dispatch(changePopupState());
+      dispatch(closeAllPopups());
     }
     console.error("error");
   };
 
   React.useEffect(() => {
     if (isSuccess) {
-      dispatch(getUserData({ token: data.accessToken, id: data.user.id }));
-      dispatch(checkAuthSuccess());
+      dispatch(
+        getUserData({
+          token: data.accessToken,
+          userId: data.user.id,
+          id: data.user.id,
+        })
+      );
     }
+    dispatch(checkAuthSuccess(isSuccess));
   }, [isSuccess]);
-  console.log(isSuccess, "isSuccess");
+
   return (
     <section className="sign-up">
       <h2 className="login__title">Регистрация</h2>

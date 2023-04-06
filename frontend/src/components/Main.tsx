@@ -3,25 +3,32 @@ import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { useGetUserQuery } from "../store/api/authApi";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { changePopupState } from "../store/popupReducer";
+import {
+  closeAllPopups,
+  isAddPlacePopupOpen,
+  isEditAvatarPopupOpen,
+  isEditProfilePopupOpen,
+} from "../store/popupReducer";
 import { getUserData } from "../store/authSlice";
+import PopupWithForm from "./PopupWithForm";
+import EditProfilePopup from "./EditProfilePopup";
+import { useGetUserInfoQuery } from "../store/api/actionsApi";
+import { getUserInfo } from "../store/userInfoSlice";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 const Main = () => {
-  const currentUser = React.useContext(CurrentUserContext);
-  const id = useAppSelector((state) => state.auth.id);
-  const popup = useAppSelector((state) => state.popup.popupIsOpen);
   const dispatch = useAppDispatch();
+  const id = useAppSelector((state) => state.auth.id);
+  const { data, isSuccess } = useGetUserInfoQuery(id);
 
-  const { data, isSuccess } = useGetUserQuery(id);
-
-  console.log(popup);
+  console.log(data);
 
   return (
     <main className="content">
       <section className="profile">
         <div
           className="profile__avatar-button"
-          onClick={() => dispatch(changePopupState())}
+          onClick={() => dispatch(isEditAvatarPopupOpen())}
         >
           <img
             className="profile__avatar"
@@ -35,7 +42,7 @@ const Main = () => {
             <button
               type="button"
               className="profile__button-edit"
-              onClick={() => dispatch(changePopupState())}
+              onClick={() => dispatch(isEditProfilePopupOpen())}
             />
           </div>
           <p className="profile__subtitle">{data?.about}</p>
@@ -44,7 +51,7 @@ const Main = () => {
         <button
           type="button"
           className="profile__add-button"
-          onClick={() => dispatch(changePopupState())}
+          onClick={() => dispatch(isAddPlacePopupOpen())}
         ></button>
       </section>
 
@@ -59,6 +66,8 @@ const Main = () => {
           />
         ))}
       </section> */}
+      <EditProfilePopup />
+      <EditAvatarPopup />
     </main>
   );
 };

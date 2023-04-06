@@ -1,16 +1,9 @@
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { changePopupState } from "../store/popupReducer";
-
-type IPopupWithForm = {
-  name: string;
-  title: string;
-  buttonSaveText: string;
-  children: React.ReactNode;
-  onSubmit: () => void;
-};
+import { closeAllPopups } from "../store/popupReducer";
+import { IPopupWithForm } from "../store/types";
 
 const PopupWithForm = (props: IPopupWithForm) => {
-  const popup = useAppSelector((state) => state.popup.popupIsOpen);
+  const popup = useAppSelector((state) => state.popup.closeAllPopups);
   const dispatch = useAppDispatch();
 
   return (
@@ -19,7 +12,7 @@ const PopupWithForm = (props: IPopupWithForm) => {
         <button
           className="popup__close-button"
           type="button"
-          onClick={() => dispatch(changePopupState())}
+          onClick={() => dispatch(closeAllPopups())}
         >
           &times;
         </button>

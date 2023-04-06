@@ -23,7 +23,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   function handleCardDelete() {
     onCardDelete(card);
   }
-  console.log(card);
+
   return (
     <article className="element">
       <button

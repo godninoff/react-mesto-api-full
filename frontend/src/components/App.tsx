@@ -242,22 +242,14 @@
 // export default App;
 
 import React from "react";
-import InfoTooltip from "./InfoTooltip";
 import Header from "./Header";
 import Login from "./Login";
 import { Route, Routes } from "react-router-dom";
 import Register from "./Register";
 import Footer from "./Footer";
 import Main from "./Main";
-import PopupWithForm, { IPopupWithForm } from "./PopupWithForm";
 
-const App: React.FC<IPopupWithForm> = ({
-  name,
-  title,
-  buttonSaveText,
-  children,
-  onSubmit,
-}) => {
+const App = () => {
   return (
     <div className="root">
       <Header />
@@ -266,13 +258,6 @@ const App: React.FC<IPopupWithForm> = ({
         <Route path="/signup" element={<Register />} />
         <Route path="/" element={<Main />} />
       </Routes>
-      <PopupWithForm
-        name={name}
-        title={title}
-        buttonSaveText={buttonSaveText}
-        children={children}
-        onSubmit={onSubmit}
-      />
       <Footer />
     </div>
   );

@@ -1,23 +1,41 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  popupIsOpen: false,
+  closeAllPopups: false,
   authSuccess: false,
+  isEditProfilePopupOpen: false,
+  isAddPlacePopupOpen: false,
+  isEditAvatarPopupOpen: false,
 };
 
 const popupSlice = createSlice({
   name: "popup",
   initialState,
   reducers: {
-    changePopupState: (state) => {
-      state.popupIsOpen = !state.popupIsOpen;
+    closeAllPopups: (state) => {
+      state.closeAllPopups = !state.closeAllPopups;
     },
-    checkAuthSuccess: (state) => {
-      state.authSuccess = !state.authSuccess;
+    checkAuthSuccess: (state, action) => {
+      state.authSuccess = action.payload;
+    },
+    isEditProfilePopupOpen: (state) => {
+      state.isEditProfilePopupOpen = !state.isEditProfilePopupOpen;
+    },
+    isAddPlacePopupOpen: (state) => {
+      state.isAddPlacePopupOpen = !state.isAddPlacePopupOpen;
+    },
+    isEditAvatarPopupOpen: (state) => {
+      state.isEditAvatarPopupOpen = !state.isEditAvatarPopupOpen;
     },
   },
 });
 
-export const { changePopupState, checkAuthSuccess } = popupSlice.actions;
+export const {
+  closeAllPopups,
+  checkAuthSuccess,
+  isEditProfilePopupOpen,
+  isAddPlacePopupOpen,
+  isEditAvatarPopupOpen,
+} = popupSlice.actions;
 
 export default popupSlice.reducer;
