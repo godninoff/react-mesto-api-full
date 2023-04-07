@@ -3,9 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   closeAllPopups: false,
   authSuccess: false,
-  isEditProfilePopupOpen: false,
-  isAddPlacePopupOpen: false,
-  isEditAvatarPopupOpen: false,
+  type: null,
 };
 
 const popupSlice = createSlice({
@@ -19,13 +17,16 @@ const popupSlice = createSlice({
       state.authSuccess = action.payload;
     },
     isEditProfilePopupOpen: (state) => {
-      state.isEditProfilePopupOpen = !state.isEditProfilePopupOpen;
+      state.closeAllPopups = !state.closeAllPopups;
     },
     isAddPlacePopupOpen: (state) => {
-      state.isAddPlacePopupOpen = !state.isAddPlacePopupOpen;
+      state.closeAllPopups = !state.closeAllPopups;
     },
     isEditAvatarPopupOpen: (state) => {
-      state.isEditAvatarPopupOpen = !state.isEditAvatarPopupOpen;
+      state.closeAllPopups = !state.closeAllPopups;
+    },
+    setPopupType: (state, action) => {
+      state.type = action.payload;
     },
   },
 });
@@ -36,6 +37,7 @@ export const {
   isEditProfilePopupOpen,
   isAddPlacePopupOpen,
   isEditAvatarPopupOpen,
+  setPopupType,
 } = popupSlice.actions;
 
 export default popupSlice.reducer;

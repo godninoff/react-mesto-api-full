@@ -8,6 +8,7 @@ import {
   isAddPlacePopupOpen,
   isEditAvatarPopupOpen,
   isEditProfilePopupOpen,
+  setPopupType,
 } from "../store/popupReducer";
 import { getUserData } from "../store/authSlice";
 import PopupWithForm from "./PopupWithForm";
@@ -28,7 +29,7 @@ const Main = () => {
       <section className="profile">
         <div
           className="profile__avatar-button"
-          onClick={() => dispatch(isEditAvatarPopupOpen())}
+          onClick={() => dispatch(setPopupType("avatar"))}
         >
           <img
             className="profile__avatar"
@@ -42,7 +43,7 @@ const Main = () => {
             <button
               type="button"
               className="profile__button-edit"
-              onClick={() => dispatch(isEditProfilePopupOpen())}
+              onClick={() => dispatch(setPopupType("edit"))}
             />
           </div>
           <p className="profile__subtitle">{data?.about}</p>
@@ -51,7 +52,7 @@ const Main = () => {
         <button
           type="button"
           className="profile__add-button"
-          onClick={() => dispatch(isAddPlacePopupOpen())}
+          onClick={() => dispatch(setPopupType("add"))}
         ></button>
       </section>
 
