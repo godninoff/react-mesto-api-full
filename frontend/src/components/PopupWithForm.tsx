@@ -2,11 +2,11 @@ import React from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { closeAllPopups, setPopupType } from "../store/popupReducer";
 import { IPopupWithForm } from "../store/types";
-import { Config } from "./Config";
+import { getConfig } from "./Config";
 
 type IPopup = {
   title: string;
-  inputs: Array<{ value: string; type: string }>;
+  inputs: Array<{ value: string; type: string; id: string }>;
 };
 
 const PopupWithForm = (props: IPopupWithForm) => {
@@ -15,14 +15,13 @@ const PopupWithForm = (props: IPopupWithForm) => {
   const [popup, setPopup] = React.useState<IPopup | null>(null);
 
   React.useEffect(() => {
-    const modal = Config.find((item) => item.type === type);
+    const modal = getConfig().find((item) => item.type === type);
     setPopup(modal || null);
   }, [type]);
 
   const dispatch = useAppDispatch();
 
   if (popup) {
-    console.log(type);
     return (
       <div className={"popup popup_visible"}>
         <div className="popup__container">
@@ -45,7 +44,22 @@ const PopupWithForm = (props: IPopupWithForm) => {
                   <input
                     required
                     value={input.value}
-                    // onChange={(e) => setName(e.target.value)}
+                    onChange={(e) => {
+                      // @ts-ignore
+                      setPopup((prevState) => {
+                        let inputs;
+                        if (prevState != null) {
+                          inputs = prevState?.inputs.map((i) => {
+                            if (i.id === input.id) {
+                              i.value = e.target.value;
+                            }
+                            return i;
+                          });
+                        }
+                        // @ts-ignore
+                        return { ...prevState, inputs };
+                      });
+                    }}
                     className="popup__input popup__input_type_name"
                     name="name"
                     id="name-input"

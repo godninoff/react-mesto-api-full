@@ -1,13 +1,15 @@
-export const Config = [
+export const getConfig = () => [
   {
     type: "edit",
     title: "Редактировать профиль",
     inputs: [
       {
+        id: "name",
         value: "Имя",
         type: "text",
       },
       {
+        id: "description",
         value: "Описание",
         type: "text",
       },
@@ -18,10 +20,12 @@ export const Config = [
     title: "Новое место",
     inputs: [
       {
+        id: "placename",
         value: "Название",
         type: "text",
       },
       {
+        id: "link",
         value: "Ссылка",
         type: "text",
       },
@@ -32,6 +36,7 @@ export const Config = [
     title: "Редактировать аватар",
     inputs: [
       {
+        id: "avatar",
         value: "Ссылка на новый аватар",
         type: "text",
       },
