@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FormEvent } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { closeAllPopups, setPopupType } from "../store/popupReducer";
 import { IPopupWithForm } from "../store/types";
@@ -6,7 +6,8 @@ import { getConfig } from "./Config";
 
 type IPopup = {
   title: string;
-  inputs: Array<{ value: string; type: string; id: string }>;
+  inputs?: Array<{ value: string; type: string; id: string }>;
+  onSubmit?: (e: FormEvent<Element>) => Promise<void>;
 };
 
 const PopupWithForm = (props: IPopupWithForm) => {
@@ -20,7 +21,7 @@ const PopupWithForm = (props: IPopupWithForm) => {
   }, [type]);
 
   const dispatch = useAppDispatch();
-
+  console.log(props);
   if (popup) {
     return (
       <div className={"popup popup_visible"}>
@@ -35,10 +36,13 @@ const PopupWithForm = (props: IPopupWithForm) => {
           <h2 className="popup__title">{popup.title}</h2>
           <form
             className="popup__form"
-            name={props.name}
-            onSubmit={props.onSubmit}
+            onSubmit={(e) => {
+              if (props.onSubmit) {
+                props.onSubmit(e);
+              }
+            }}
           >
-            {popup.inputs.map((input) => {
+            {popup.inputs?.map((input) => {
               return (
                 <>
                   <input
@@ -49,7 +53,7 @@ const PopupWithForm = (props: IPopupWithForm) => {
                       setPopup((prevState) => {
                         let inputs;
                         if (prevState != null) {
-                          inputs = prevState?.inputs.map((i) => {
+                          inputs = prevState?.inputs?.map((i) => {
                             if (i.id === input.id) {
                               i.value = e.target.value;
                             }

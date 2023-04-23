@@ -16,11 +16,13 @@ import EditProfilePopup from "./EditProfilePopup";
 import { useGetUserInfoQuery } from "../store/api/actionsApi";
 import { getUserInfo } from "../store/userInfoSlice";
 import EditAvatarPopup from "./EditAvatarPopup";
+import { IPopupWithForm } from "../store/types";
 
-const Main = () => {
+const Main = (props: IPopupWithForm) => {
   const dispatch = useAppDispatch();
   const id = useAppSelector((state) => state.auth.id);
   const { data, isSuccess } = useGetUserInfoQuery(id);
+  const type = useAppSelector((state) => state.popup.type);
 
   console.log(data);
 
@@ -67,8 +69,8 @@ const Main = () => {
           />
         ))}
       </section> */}
-      <EditProfilePopup />
-      <EditAvatarPopup />
+      {type === "avatar" && <EditAvatarPopup />}
+      {type === "edit" && <EditProfilePopup />}
     </main>
   );
 };

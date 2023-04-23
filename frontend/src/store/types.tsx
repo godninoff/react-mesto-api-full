@@ -1,3 +1,5 @@
+import { FormEvent } from "react";
+
 export interface IUser {
   id?: number;
   email?: string;
@@ -11,9 +13,5 @@ export interface IUserInfo {
 }
 
 export type IPopupWithForm = {
-  name: string;
-  title: string;
-  buttonSaveText: string;
-  children: React.ReactNode;
-  onSubmit: (e: React.FormEvent) => void;
+  onSubmit?: (e: FormEvent<Element>) => Promise<void>;
 };

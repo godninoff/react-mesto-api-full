@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FormEvent } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { useEditUserMutation } from "../store/api/actionsApi";
@@ -18,7 +18,7 @@ const EditProfilePopup = () => {
   //   setDescription(currentUser.about);
   // }, [currentUser, props.isOpen]);
 
-  const handleEditUser = async (e: React.FormEvent) => {
+  const handleEditUser = async (e: FormEvent<Element>) => {
     e.preventDefault();
     if (userId)
       await editUser({
@@ -29,40 +29,6 @@ const EditProfilePopup = () => {
     setDescription("");
   };
 
-  return (
-    <PopupWithForm
-      name="popup_edit"
-      title="Редактировать профиль"
-      buttonSaveText="Сохранить"
-      onSubmit={handleEditUser}
-    >
-      <input
-        required
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        className="popup__input popup__input_type_name"
-        name="name"
-        id="name-input"
-        type="text"
-        minLength={2}
-        maxLength={40}
-        placeholder="Имя"
-      />
-      <span className="popup__form-error name-input-error"></span>
-      <input
-        required
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        className="popup__input popup__input_type_description"
-        name="about"
-        id="description-input"
-        type="text"
-        minLength={2}
-        maxLength={200}
-        placeholder="Вид деятельности"
-      />
-      <span className="popup__form-error description-input-error"></span>
-    </PopupWithForm>
-  );
+  return <PopupWithForm onSubmit={handleEditUser} />;
 };
 export default EditProfilePopup;
