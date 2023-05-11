@@ -21,7 +21,7 @@ const PopupWithForm = (props: IPopupWithForm) => {
   }, [type]);
 
   const dispatch = useAppDispatch();
-  console.log(props);
+
   if (popup) {
     return (
       <div className={"popup popup_visible"}>

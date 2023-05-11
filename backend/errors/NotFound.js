@@ -5,4 +5,4 @@ class NotFound extends Error {
   }
 }
 
-module.exports = NotFound;
+export default NotFound;

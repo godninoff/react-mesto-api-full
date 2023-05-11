@@ -7,15 +7,18 @@ export const actionsApi = createApi({
     baseUrl: "http://localhost:3002/",
     credentials: "include",
   }),
+  tagTypes: ["User"],
   endpoints: (build) => ({
     editUser: build.mutation({
-      query: (body: { name: string; about: string }) => {
+      query: (data) => {
+        console.log(data);
         return {
-          url: `userinfo`,
+          url: `userinfo/${data.userId}`,
           method: "PATCH",
-          body,
+          body: data.name,
         };
       },
+      invalidatesTags: ["User"],
     }),
     getUserInfo: build.query<IUserInfo, number | null>({
       query: (id) => `userinfo/${id}`,

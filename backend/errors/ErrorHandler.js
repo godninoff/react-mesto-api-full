@@ -1,11 +1,13 @@
-const errorHandler = ((err, req, res, next) => {
+const errorHandler = (err, req, res, next) => {
   const { statusCode = 500, message } = err;
 
   res
     .status(statusCode)
-    .json({ message: statusCode === 500 ? 'На сервере произошла ошибка' : message });
+    .json({
+      message: statusCode === 500 ? "На сервере произошла ошибка" : message,
+    });
 
   next();
-});
+};
 
-module.exports = errorHandler;
+export default errorHandler;

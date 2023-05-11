@@ -1,47 +1,64 @@
-const router = require('express').Router();
-const { celebrate, Joi } = require('celebrate');
-const validator = require('validator');
-const {
+import express from "express";
+const router = express.Router();
+import { celebrate, Joi } from "celebrate";
+import _isURL from "validator";
+import {
   getCards,
   createCard,
   deleteIdCard,
   likeCard,
   dislikeCard,
-} = require('../controllers/cards');
+} from "../controllers/cards.js";
 
 const isURL = (v) => {
-  const result = validator.isURL(v, { require_protocol: true });
+  const result = _isURL(v, { require_protocol: true });
   if (result) {
     return v;
   }
-  throw new Error('Некорректный URL-адрес');
+  throw new Error("Некорректный URL-адрес");
 };
 
-router.get('/cards', getCards);
+router.get("/cards", getCards);
 
-router.post('/cards', celebrate({
-  body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30),
-    link: Joi.string().required().custom(isURL),
+router.post(
+  "/cards",
+  celebrate({
+    body: Joi.object().keys({
+      name: Joi.string().required().min(2).max(30),
+      link: Joi.string().required().custom(isURL),
+    }),
   }),
-}), createCard);
+  createCard
+);
 
-router.delete('/cards/:cardId', celebrate({
-  params: Joi.object().keys({
-    cardId: Joi.string().hex().length(24),
+router.delete(
+  "/cards/:cardId",
+  celebrate({
+    params: Joi.object().keys({
+      cardId: Joi.string().hex().length(24),
+    }),
   }),
-}), deleteIdCard);
+  deleteIdCard
+);
 
-router.put('/cards/:cardId/likes', celebrate({
-  params: Joi.object().keys({
-    cardId: Joi.string().hex().length(24),
+router.put(
+  "/cards/:cardId/likes",
+  celebrate({
+    params: Joi.object().keys({
+      cardId: Joi.string().hex().length(24),
+    }),
   }),
-}), likeCard);
+  likeCard
+);
 
-router.delete('/cards/:cardId/likes', celebrate({
-  params: Joi.object().keys({
-    cardId: Joi.string().hex().length(24),
+router.delete(
+  "/cards/:cardId/likes",
+  celebrate({
+    params: Joi.object().keys({
+      cardId: Joi.string().hex().length(24),
+    }),
   }),
-}), dislikeCard);
+  dislikeCard
+);
 
-module.exports = router;
+export default router;

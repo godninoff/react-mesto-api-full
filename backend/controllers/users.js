@@ -1,25 +1,24 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const User = require("../models/user");
-const BadRequest = require("../errors/BadRequest");
-const Conflict = require("../errors/Conflict");
-const NotFound = require("../errors/NotFound");
-const Unauthorized = require("../errors/Unauthorized");
+import _hash from "bcryptjs";
+import sign from "jsonwebtoken";
+import BadRequest from "../errors/BadRequest.js";
+import Conflict from "../errors/Conflict.js";
+import NotFound from "../errors/NotFound.js";
+import Unauthorized from "../errors/Unauthorized.js";
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-module.exports.createUser = (req, res, next) => {
+export function createUser(req, res, next) {
   const { name, about, avatar, email, password } = req.body;
 
-  User.findOne({ email })
+  findOne({ email })
     .then(async (data) => {
       if (data) {
         throw new Conflict(
           "Указаный Вами email используется другим пользователем"
         );
       }
-      const hash = await bcrypt.hash(password, 10);
-      User.create({
+      const hash = await _hash(password, 10);
+      create({
         name,
         about,
         avatar,
@@ -36,12 +35,12 @@ module.exports.createUser = (req, res, next) => {
         });
     })
     .catch(next);
-};
+}
 
-module.exports.getCurrentUser = (req, res, next) => {
+export function getCurrentUser(req, res, next) {
   const userId = req.user._id;
 
-  User.findById(userId)
+  findById(userId)
     .then((user) => {
       if (!user) {
         throw new NotFound("Пользователь не найден");
@@ -56,14 +55,14 @@ module.exports.getCurrentUser = (req, res, next) => {
         next(err);
       }
     });
-};
+}
 
-module.exports.login = (req, res, next) => {
+export function login(req, res, next) {
   const { email, password } = req.body;
 
-  return User.findUserByCredentials(email, password)
+  return findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign(
+      const token = sign(
         { _id: user._id },
         NODE_ENV === "production" ? JWT_SECRET : "dev-secret",
         { expiresIn: "7d" }
@@ -80,16 +79,16 @@ module.exports.login = (req, res, next) => {
       throw new Unauthorized("Неверный логин или пароль");
     })
     .catch(next);
-};
+}
 
-module.exports.getUsers = (req, res, next) => {
-  User.find({})
+export function getUsers(req, res, next) {
+  find({})
     .then((users) => res.status(200).send({ data: users }))
     .catch(next);
-};
+}
 
-module.exports.getUserId = (req, res, next) => {
-  User.findById(req.params.userId)
+export function getUserId(req, res, next) {
+  findById(req.params.userId)
     .orFail(new Error("NotValidId"))
     .then((user) => res.status(200).send({ data: user }))
     .catch((err) => {
@@ -101,11 +100,11 @@ module.exports.getUserId = (req, res, next) => {
         next(err);
       }
     });
-};
+}
 
-module.exports.avatarUpdate = (req, res, next) => {
+export function avatarUpdate(req, res, next) {
   const { avatar } = req.body;
-  User.findByIdAndUpdate(
+  findByIdAndUpdate(
     req.user._id,
     { avatar },
     {
@@ -129,11 +128,11 @@ module.exports.avatarUpdate = (req, res, next) => {
         next(err);
       }
     });
-};
+}
 
-module.exports.profileUpdate = (req, res, next) => {
+export function profileUpdate(req, res, next) {
   const { name, about } = req.body;
-  User.findByIdAndUpdate(
+  findByIdAndUpdate(
     req.user._id,
     { name, about },
     {
@@ -157,9 +156,9 @@ module.exports.profileUpdate = (req, res, next) => {
         next(err);
       }
     });
-};
+}
 
-module.exports.signOut = (req, res) => {
+export function signOut(req, res) {
   res
     .clearCookie("jwt", {
       httpOnly: true,
@@ -168,4 +167,4 @@ module.exports.signOut = (req, res) => {
     })
     .status(200)
     .send({ message: "Cookie удалены" });
-};
+}

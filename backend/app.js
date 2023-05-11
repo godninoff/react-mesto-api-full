@@ -1,32 +1,31 @@
-require("dotenv").config();
-const express = require("express");
-const mongoose = require("mongoose");
-const cookieParser = require("cookie-parser");
-const { celebrate, Joi } = require("celebrate");
-const { errors } = require("celebrate");
-const helmet = require("helmet");
-const cors = require("cors");
-const usersRouter = require("./routes/users");
-const cardsRouter = require("./routes/cards");
-const { createUser, login } = require("./controllers/users");
-const auth = require("./middlewares/auth");
-const NotFound = require("./errors/NotFound");
-const errorHandler = require("./errors/ErrorHandler");
-const { requestLogger, errorLogger } = require("./middlewares/logger");
+import dotenv from "dotenv";
+dotenv.config();
+import express, { json, urlencoded } from "express";
+import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
+import { celebrate, Joi } from "celebrate";
+import { errors } from "celebrate";
+import helmet from "helmet";
+import cors from "cors";
+import usersRouter from "./routes/users.js";
+import cardsRouter from "./routes/cards.js";
+import { createUser, login } from "./controllers/users.js";
+import auth from "./middlewares/auth.js";
+import NotFound from "./errors/NotFound.js";
+import errorHandler from "./errors/ErrorHandler.js";
+import { requestLogger, errorLogger } from "./middlewares/logger.js";
 
-const { MONGO_URL, PORT = 3000 } = process.env;
+const { MONGO_URL, PORT = 3002 } = process.env;
 const app = express();
 
-mongoose.connect(MONGO_URL, {
+mongoose.connect("mongodb://127.0.0.1:27017/mesto", {
   useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
   useUnifiedTopology: true,
 });
 
 app.use(helmet());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(json());
+app.use(urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(requestLogger);

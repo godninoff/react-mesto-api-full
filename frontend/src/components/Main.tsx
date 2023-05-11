@@ -24,8 +24,6 @@ const Main = (props: IPopupWithForm) => {
   const { data, isSuccess } = useGetUserInfoQuery(id);
   const type = useAppSelector((state) => state.popup.type);
 
-  console.log(data);
-
   return (
     <main className="content">
       <section className="profile">

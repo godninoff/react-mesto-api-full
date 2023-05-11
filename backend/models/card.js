@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
+const Schema = mongoose.Schema;
 
-const cardSchema = new mongoose.Schema({
+const cardSchema = new Schema({
   name: {
     type: String,
     minlength: 2,
@@ -12,27 +13,27 @@ const cardSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(str) {
-        const pattern = /^(https?:\/\/)?([а-я0-9_-]{1,}|[a-z0-9_-]{1,})\.([а-я0-9_-]{1,}|[a-z0-9_-]\S{1,})/;
+        const pattern =
+          /^(https?:\/\/)?([а-я0-9_-]{1,}|[a-z0-9_-]{1,})\.([а-я0-9_-]{1,}|[a-z0-9_-]\S{1,})/;
         return pattern.test(str);
       },
-      message: 'Введите URL-адрес',
+      message: "Введите URL-адрес",
     },
   },
   owner: {
-    ref: 'user',
-    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+    type: Schema.Types.ObjectId,
     required: true,
   },
   likes: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'user',
+    type: [Schema.Types.ObjectId],
+    ref: "user",
     default: [],
   },
   createdAt: {
     type: Date,
     defaut: Date.now,
   },
-
 });
 
-module.exports = mongoose.model('card', cardSchema);
+export default mongoose.model("card", cardSchema);
